@@ -17,8 +17,9 @@ public class TestRandomValueGenerator implements IRandomValueGenerator {
 	}
 
 	@Override
-	public double getRandomNumInRange(int min, int max) {
-		 return (randomValue * ( (max-min) + 1)  + min);
+	public int getRandomNumInRange(int min, int max) {
+		 int r = (int) (randomValue * (max-min+1)  + min);
+		 return r;
 	}
 
 	

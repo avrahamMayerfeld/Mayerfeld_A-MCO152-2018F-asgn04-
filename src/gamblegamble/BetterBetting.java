@@ -9,7 +9,7 @@ public class BetterBetting {
 	public BetterBetting(int minBalance, IRandomValueGenerator randGen) {
 		this.randGen = randGen;
 		
-		if(minBalance < 0) {
+		if(minBalance <= 0) {
 			this.minBalance = minBalance;
 		}
 		
@@ -33,21 +33,32 @@ public class BetterBetting {
 	
 	public int betOnANumber(int amnt, int min, int max, int selectedNumber) {
 		int amountChanged = 0;
-		int randomNumber= (int) randGen.getRandomNumInRange(min, max);
-		
-		if (canBet(amnt)) {
-			if ( !(selectedNumber == randomNumber) ) {
-				amountChanged = -amnt;
-				balance -= amnt;
+		int randomNumber = randGen.getRandomNumInRange(min, max);
+		//eliminate range of 1; eliminate negative min, did not write functionality for that because
+		// it would cause the winnings to be unfairly inflated, by subtracting a negative.
+		if(max>min && min>=0) {
+			if (canBet(amnt)) {
+				if (selectedNumber == randomNumber) {
+					amountChanged = (max - min) * amnt;
+					balance += amountChanged;
+				}
+				else {
+					amountChanged = -amnt;
+					balance -= amnt;
+				}
 			}
 			else {
-				amountChanged = ((max - min) * amnt) ;
-				balance += amountChanged;
+				System.out.println("You cannot bet that amount with your balance.");
 			}
+		}
+		else {
+			System.out.println("You can only bet on a positive range numbers where max > min");
 		}
 		return amountChanged;
 	}
 	
+	//100% is not allowed, you shouldn't be allowed make a bet like that. But 0% is allowed, You have a right to 
+	//throw away your money.
 	public int betOnProbability(int amnt, double p)
 	{
 		int amountChanged = 0;
@@ -80,9 +91,14 @@ public class BetterBetting {
 		}
 		return amountChanged;
 	}
-
+    
+	//for testing purposes
 	public int getMinBalance() {
 		return minBalance;
+	}
+	
+	public IRandomValueGenerator getRandomGenerator() {
+		return randGen;
 	}
 	
 }
