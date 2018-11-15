@@ -1,19 +1,23 @@
 package gamblegamble;
 
 public class TestRandomValueGenerator implements IRandomValueGenerator {
-    int randomValue;
+    double randomValue;
     
-    public void setRandommNum(int val) {
+    public TestRandomValueGenerator() {
+    	 randomValue = 0.00;
+    }
+   
+    public void setRandomNum(double val) {
 		randomValue = val;
 	}
 	
 	@Override
-	public int getRandomNum() {
+	public double getRandomNum() {
 		return randomValue;
 	}
 
 	@Override
-	public int getRandomNumInRange(int min, int max) {
+	public double getRandomNumInRange(int min, int max) {
 		 return (randomValue * ( (max-min) + 1)  + min);
 	}
 
@@ -22,6 +26,9 @@ public class TestRandomValueGenerator implements IRandomValueGenerator {
 	public boolean getHitProbability(double p) {
 		return randomValue <= p;
 	}
+
+	
+	
 
 	
 	

@@ -2,22 +2,32 @@ package gamblegamble;
 
 public class RandomValueGenerator implements IRandomValueGenerator{
 	
-	int randomValue;
+	double randomValue;
 	
 	
 	public RandomValueGenerator() {
-		randomValue = (int) Math.random();
+		randomValue =  Math.random();
 	}
 	
 	@Override
-	public int getRandomNum() {
+	public double getRandomNum() {
 		
 		return randomValue;
 	}
 
 	@Override
-	public int getRandomNumInRange(int min, int max) {
-		return (randomValue * ( (max-min) + 1)  + min);
+	public double getRandomNumInRange(int min, int max) {
+		double randomInRange=0;
+		if(min <= max)
+			randomInRange=(randomValue * ( (max-min) + 1)  + min);
+		else
+			try {
+				throw new Exception();
+			} catch (Exception e) {
+				
+				e.printStackTrace();
+			}
+ 		return randomInRange;
 	}
 
 	@Override 
@@ -25,5 +35,8 @@ public class RandomValueGenerator implements IRandomValueGenerator{
 		
 		return randomValue <= p;
 	}
+
+	
+	
 
 }
