@@ -137,19 +137,19 @@ class TESTBetterBetting {
 	   
 	}
 	
-	/*@Test
+	@Test
 	public void testBetOnANumberLose() {
-		assertNotEquals(better0_0.betOnANumber(20, 4, 10, 8),8)
-		asssertNOtEquals    all of them with wrong number
-		assert not equals getbalance same numbers
-	}
+		assertEquals(better0_0.betOnANumber(20, 4, 10, 1),-20);
+		//asssertEquals    
+		}
+	
 	@Test
 	public void testBetOnANumberWithNegativeMinReturn0() {
 		
 	}
 	
-	@Test
-	public void cantBetOnNumber() {
+/*	@Test
+	public void cantBetOnNumberReturn)() {
 		//amountChenged, balance
 		better0_0    ,
 		 better0_N1   ,              
@@ -164,7 +164,7 @@ class TESTBetterBetting {
 	}
 	
 	@Test
-	public void cantBetOnProb() {
+	public void cantBetOnProbReturn0() {
 		int amountChanged;
 		int balance;
 	}

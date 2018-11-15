@@ -88,6 +88,7 @@ public class BetterBetting {
 					e.getMessage();
 				}
 			}
+		
 		}
 		return amountChanged;
 	}
