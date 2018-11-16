@@ -113,6 +113,8 @@ class TESTBetterBetting {
 		assertTrue(better0_0.canBet(100));
 		assertFalse(better0_0.canBet(101));
 		assertFalse(better0_0.canBet(-5));
+		assertTrue(better0_N1.canBet(101));
+		assertFalse(better0_N1.canBet(-5));
 	}
 	
 	@Test  //randomValue * (max-min + 1)  + min: amountChanged==(max-min)*amount , balance
@@ -122,16 +124,12 @@ class TESTBetterBetting {
 		assertEquals(better2Dec_0.betOnANumber(60, 2, 100, 26), 5880);
 		assertEquals(better2Dec_0.betOnANumber(67, 3, 11, 5), 536);
 		assertEquals(better2Dec_0.getCurrentBalance(),8496);
-        
-		//assertEquals(better2Dec_0.getCurrentBalance(),6416);
-		//merely for testing purposes, not realistic
+        //merely for testing purposes, not realistic
 		assertEquals(better1_0.betOnANumber(50, 0, 100, 101),5000);
-		
-		
-		assertEquals(better0_N1.betOnANumber(101, 2, 30, 2),2828 );
-		assertEquals(better9Dec_N1.betOnANumber(75, 6, 1000, 991), 74550  );
-		assertEquals(better9Dec_0.betOnANumber(80, 0, 12, 12), 960  );
-		
+		//minimumBalance is negative 1
+		assertEquals(better0_N1.betOnANumber(101, 2, 30, 2),2828);
+		assertEquals(better9Dec_N1.betOnANumber(75, 6, 1000, 991), 74550);
+		assertEquals(better9Dec_0.betOnANumber(80, 0, 12, 12), 960);
 		//corner case, Math.random gives no negative generation(nor does the better allow negative values-see below)
 	    assertEquals(betterND1_0.betOnANumber(20, 10, 70, -10), 1200);
 	   
@@ -139,34 +137,43 @@ class TESTBetterBetting {
 	
 	@Test
 	public void testBetOnANumberLose() {
+		//number out of range
 		assertEquals(better0_0.betOnANumber(20, 4, 10, 1),-20);
-		//asssertEquals    
+		assertEquals(better1_N1.betOnANumber(34, 4, 14, 13),-34);    
+		assertEquals(better9Dec_0.betOnANumber(70, 80, 101, 90 ),-70);
+		assertEquals(better9Dec_0.getCurrentBalance(),30);
 		}
 	
 	@Test
 	public void testBetOnANumberWithNegativeMinReturn0() {
-		
-	}
-	
-/*	@Test
-	public void cantBetOnNumberReturn)() {
-		//amountChenged, balance
-		better0_0    ,
-		 better0_N1   ,              
-		 better1_0    ,
-		 better1_N1   ,
-		 better2Dec_0 ,
-		 better2Dec_N1,
-		 betterND1_0  ,
-		 betterND1_N1 , 
-		 better9Dec_0 ,
-	     better9Dec_N1;
+		//test win
+		assertEquals(better2Dec_0.betOnANumber(50, -5, 14, 5),0);
+		//test lose
+		assertEquals(better2Dec_0.betOnANumber(50, -5, 14, 8),0);
+		assertEquals(better1_0.betOnANumber(50, -10, 10, 21 ),0);
+		assertEquals(betterND1_N1.betOnANumber(97, -7, -2, 1),0);
+		assertEquals(betterND1_0.betOnANumber(72,-1000,0,669),0);
+		assertEquals(betterND1_0.getCurrentBalance(),100);
 	}
 	
 	@Test
+	public void cantBetOnNumberReturn0() {
+		//same test as when works, with too high bet
+		assertEquals(better2Dec_0.betOnANumber(101, 1, 100, 26),0);
+		assertEquals(better2Dec_0.betOnANumber(102, 2, 100, 26),0);
+		assertEquals(better2Dec_0.betOnANumber(103, 3, 11, 5),0);
+		assertEquals(better2Dec_0.getCurrentBalance(),100);
+        assertEquals(better1_0.betOnANumber(101, 0, 100, 101),0);
+		assertEquals(better0_N1.betOnANumber(102, 2, 30, 2),0);
+		assertEquals(better9Dec_N1.betOnANumber(103, 6, 1000, 991),0);
+		assertEquals(better9Dec_0.betOnANumber(101, 0, 12, 12),0);
+		assertEquals(betterND1_0.betOnANumber(107, 10, 70, -10),0);
+	   
+	}
+
+	@Test
 	public void cantBetOnProbReturn0() {
-		int amountChanged;
-		int balance;
+	
 	}
 	
 	
@@ -175,48 +182,35 @@ class TESTBetterBetting {
 	
 	@Test
 	public void testBetOnProbWin() {
-		int amountChanged;
-		int balance;
-		better0_0.
+		
 	}
 	
 	@Test
 	public void testBetOnProbLose() {
-		int amountChanged;
-		int balance;
-		better0_0.
+
 	}
 	
 	@Test
 	public void testBet100PercentOrMoreProbException() {
-		int amountChanged;
-		int balance;
-		better0_0.
+		
 	}
 	
 	@Test
 	public void testBetNEGATIVEProbException() {
-		int amountChanged;
-		int balance;
-		better0_0.
+		
 	}
 
 	@Test
 	public void testBetZEROPercentProbLose() {
-		int amountChanged;
-		int balance;
-		better0_0.
+		
 	}
+	
 	
 	@Test
 	public void TestgenMinGreaterThanMaxException(){
 	
 	}
 	
-	
-	*/
-	
-	    
 	
 }
 

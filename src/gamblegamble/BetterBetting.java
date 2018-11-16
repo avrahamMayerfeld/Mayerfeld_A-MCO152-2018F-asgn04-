@@ -31,6 +31,8 @@ public class BetterBetting {
 		balance += amnt;
 	}
 	
+	//if someone chooses a number thats out of the range, that's their problem, they lose automatically.
+	//Stupidity or drunkenness is not tolerated in this casino.
 	public int betOnANumber(int amnt, int min, int max, int selectedNumber) {
 		int amountChanged = 0;
 		int randomNumber = randGen.getRandomNumInRange(min, max);
@@ -52,7 +54,7 @@ public class BetterBetting {
 			}
 		}
 		else {
-			System.out.println("You can only bet on a positive range numbers where max > min");
+			System.out.println("You can only bet on a positive range of numbers where max > min");
 		}
 		return amountChanged;
 	}
@@ -84,7 +86,6 @@ public class BetterBetting {
 					throw new ImpossibleProbabilityException("Probability cannot be 100 percent or greater or less than 0 percent.");
 				} catch (ImpossibleProbabilityException e)
 				{
-				
 					e.getMessage();
 				}
 			}
