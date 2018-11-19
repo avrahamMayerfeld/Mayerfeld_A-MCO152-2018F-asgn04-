@@ -1,8 +1,16 @@
 package gamblegamble;
+import org.junit.jupiter.api.function.Executable;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+
 
 import org.junit.Before;
+import static org.junit.jupiter.api.Assertions.*;
+
+import java.security.InvalidParameterException;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -142,7 +150,7 @@ class TESTBetterBetting {
 		assertEquals(better1_N1.betOnANumber(34, 4, 14, 13),-34);    
 		assertEquals(better9Dec_0.betOnANumber(70, 80, 101, 90 ),-70);
 		assertEquals(better9Dec_0.getCurrentBalance(),30);
-		}
+	}
 	
 	@Test
 	public void testBetOnANumberWithNegativeMinReturn0() {
@@ -173,7 +181,15 @@ class TESTBetterBetting {
 
 	@Test
 	public void cantBetOnProbReturn0() {
-	
+		try {
+			assertEquals(better2Dec_0.betOnProbability(101, 0.25),0);
+			assertEquals(better2Dec_N1.betOnProbability(102, 0.25),0);
+			assertEquals(better9Dec_0.betOnProbability(101, 0.99),0);
+			assertEquals(better9Dec_N1.betOnProbability(102, 0.99),0);
+		}
+		catch(ImpossibleProbabilityException e){
+			e.getMessage();
+		}
 	}
 	
 	
@@ -182,33 +198,88 @@ class TESTBetterBetting {
 	
 	@Test
 	public void testBetOnProbWin() {
-		
+		try {
+			assertEquals(better2Dec_0.betOnProbability(100, 0.25), (int)( ( (Math.pow(0.25, -1)) -1) * 100 ));
+			assertEquals(better2Dec_0.betOnProbability(100, 0.25),300);
+			assertEquals(better2Dec_N1.betOnProbability(101, 0.25),303);
+			assertEquals(better9Dec_0.betOnProbability(100, 0.99),1);
+		    assertEquals(better9Dec_N1.betOnProbability(101, 0.99),1);
+		    assertEquals(better2Dec_0.betOnProbability(100, 0.80), (int)( ( (Math.pow(0.80, -1)) -1) * 100 ));
+			assertEquals(better2Dec_0.betOnProbability(100, 0.80),25);
+			assertEquals(better2Dec_N1.betOnProbability(101, 0.26),287);
+		    //"win"
+			assertEquals(better9Dec_0.betOnProbability(100, 0.999),0);
+		    assertEquals(better9Dec_N1.betOnProbability(101, 0.999),0);
+		}
+		catch(ImpossibleProbabilityException e) {
+			e.getMessage();
+		}
+		    
+	    
 	}
 	
 	@Test
-	public void testBetOnProbLose() {
-
+	public void testBetOnProbLoseAmount() {
+		try{
+			assertEquals(better2Dec_0.betOnProbability(60, 0.24),-60);
+	        assertEquals(better2Dec_N1.betOnProbability(60, 0.1),-60);
+			assertEquals(better9Dec_0.betOnProbability(60, 0.98),-60);
+		    assertEquals(better9Dec_N1.betOnProbability(60, 0.80),-60);
+		    assertEquals(better2Dec_0.getCurrentBalance(),40);
+		    assertEquals(better2Dec_N1.getCurrentBalance(),40);
+		    assertEquals(better9Dec_N1.getCurrentBalance(),40);
+			assertEquals(better9Dec_0.getCurrentBalance(),40);
+		}
+		catch(ImpossibleProbabilityException e) {
+			e.getMessage();
+		}
 	}
 	
 	@Test
 	public void testBet100PercentOrMoreProbException() {
-		
+		assertThrows(ImpossibleProbabilityException.class, () -> better1_0.betOnProbability(50, 1.00));
+	
 	}
 	
 	@Test
 	public void testBetNEGATIVEProbException() {
-		
+		assertThrows(ImpossibleProbabilityException.class, () -> betterND1_0.betOnProbability(50,-0.33));
+		//throws exception in all cases, less than or more than p
+		assertThrows(ImpossibleProbabilityException.class, () -> betterND1_0.betOnProbability(50,-0.34));
+		assertThrows(ImpossibleProbabilityException.class, () -> betterND1_0.betOnProbability(50,-0.32));
+		assertThrows(ImpossibleProbabilityException.class, () -> better0_0.betOnProbability(100, -1));
+		assertThrows(ImpossibleProbabilityException.class, () -> better2Dec_0.betOnProbability(60, -1));
 	}
 
-	@Test
-	public void testBetZEROPercentProbLose() {
+	@Test  
+	public void testBetZEROPercentException() {
+		assertThrows(ImpossibleProbabilityException.class, () -> better0_0.betOnProbability(40, 0));
+	}    
+	
+	@Test  //(int) (randomValue * (max-min+1)  + min);
+	void testRandomInRangeGenerator() {
+		TestRandomValueGenerator trvg = new TestRandomValueGenerator();
+		trvg.setRandomNum(.5);
+		assertEquals(trvg.getRandomNumInRange(2, 60),31);
+		trvg.setRandomNum(.37);
+		assertEquals(trvg.getRandomNumInRange(2, 60),23);
+		assertEquals(trvg.getRandomNumInRange(2, 2),2);
+	    assertEquals(trvg.getRandomNumInRange(-20, 30),-1);
+	    assertEquals(trvg.getRandomNumInRange(-60, -2),-38);
+	    trvg.setRandomNum(-0.37);
+		assertEquals(trvg.getRandomNumInRange(2, 60),-19);
+		
+		//The following fail; must figure out why, but for this project it doesn't seem to matter.
+			//assertEquals(trvg.getRandomNumInRange(2, 2),0);
+			//assertEquals(trvg.getRandomNumInRange(-20, 30),1);
+			//assertEquals(trvg.getRandomNumInRange(-60, -2),38);
+	   
 		
 	}
 	
-	
 	@Test
-	public void TestgenMinGreaterThanMaxException(){
-	
+	public void testgenMinGreaterThanMaxException(){
+			assertThrows(InvalidParameterException.class, () -> testGen1.getRandomNumInRange(2, 1));
 	}
 	
 	

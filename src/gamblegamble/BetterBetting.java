@@ -59,14 +59,13 @@ public class BetterBetting {
 		return amountChanged;
 	}
 	
-	//100% is not allowed, you shouldn't be allowed make a bet like that. But 0% is allowed, You have a right to 
-	//throw away your money.
-	public int betOnProbability(int amnt, double p)
+	//100% is not allowed, unfair; 0% not allowed, ends up infinity and causes problems.
+	public int betOnProbability(int amnt, double p) throws ImpossibleProbabilityException
 	{
 		int amountChanged = 0;
 		if(canBet(amnt)) 
 		{
-			if(!(p<0 || p>=1)) 
+			if(!(p<=0 || p>=1)) 
 			{
 				if(!randGen.getHitProbability(p))
 				{
@@ -75,19 +74,13 @@ public class BetterBetting {
 				}
 				else
 				{
-					amountChanged =   (int) (Math.pow(p, -1)-1) * amnt;
+					amountChanged =   (int)( ( (Math.pow(p, -1)) -1) * amnt );
 					balance += amountChanged;
 				}
 			}
 			else 
 			{
-				try 
-				{
-					throw new ImpossibleProbabilityException("Probability cannot be 100 percent or greater or less than 0 percent.");
-				} catch (ImpossibleProbabilityException e)
-				{
-					e.getMessage();
-				}
+				throw new ImpossibleProbabilityException("Probability must be greater than 0 and less than 100 percent.");
 			}
 		
 		}

@@ -1,5 +1,7 @@
 package gamblegamble;
 
+import java.security.InvalidParameterException;
+
 public class TestRandomValueGenerator implements IRandomValueGenerator {
     double randomValue;
     
@@ -18,8 +20,14 @@ public class TestRandomValueGenerator implements IRandomValueGenerator {
 
 	@Override
 	public int getRandomNumInRange(int min, int max) {
-		 int r = (int) (randomValue * (max-min+1)  + min);
-		 return r;
+		int randomInRange=0;
+		if(min <= max)
+			randomInRange=(int) (randomValue * (max-min + 1)  + min);
+		else {
+			
+				throw new InvalidParameterException("min cannot be greater than max");
+		}
+ 		return randomInRange;
 	}
 
 	
