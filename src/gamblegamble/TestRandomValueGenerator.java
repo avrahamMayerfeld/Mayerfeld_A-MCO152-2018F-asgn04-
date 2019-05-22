@@ -10,35 +10,30 @@ public class TestRandomValueGenerator implements IRandomValueGenerator {
     }
    
     public void setRandomNum(double val) {
-		randomValue = val;
-	}
+	 randomValue = val;
+    }
 	
-	@Override
-	public double getRandomNum() {
-		return randomValue;
-	}
+    @Override
+    public double getRandomNum() {
+	return randomValue;
+    }
 
-	@Override
-	public int getRandomNumInRange(int min, int max) {
-		int randomInRange=0;
-		if(min <= max)
-			randomInRange=(int) (randomValue * (max-min + 1)  + min);
-		else {
+    @Override
+    public int getRandomNumInRange(int min, int max) {
+	int randomInRange=0;
+	if(min <= max)
+		randomInRange=(int) (randomValue * (max-min + 1)  + min);
+	else {
 			
-				throw new InvalidParameterException("min cannot be greater than max");
-		}
- 		return randomInRange;
+	     	throw new InvalidParameterException("min cannot be greater than max");
 	}
+ 	return randomInRange;
+    }
 
-	
-	@Override
-	public boolean getHitProbability(double p) {
-		return randomValue <= p;
-	}
+	  
+    @Override
+    public boolean getHitProbability(double p) {
+    return randomValue <= p;
+    }
 
-	
-	
-
-	
-	
 }
