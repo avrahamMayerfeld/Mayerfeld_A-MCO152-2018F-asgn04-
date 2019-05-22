@@ -35,7 +35,7 @@ class TESTBetterBetting {
 	 betterND1_0  ,
 	 betterND1_N1 , 
 	 better9Dec_0 ,
-     better9Dec_N1;
+     	 better9Dec_N1;
      
    	BetterBetting  better0_1, better1_1, betterN1_1; 
 	
@@ -45,13 +45,13 @@ class TESTBetterBetting {
 		better0_0 = new BetterBetting(0,testGen1);
 		better0_N1 = new BetterBetting(-1,testGen1);
 		better0_0.addMoney(100);
-	    better0_N1.addMoney(100);
+	    	better0_N1.addMoney(100);
 		
 		testGen2.setRandomNum(1.00);
-	    better1_0 = new BetterBetting(0,testGen2);
+	    	better1_0 = new BetterBetting(0,testGen2);
 		better1_N1 = new BetterBetting(-1,testGen2);
 		better1_0.addMoney(100);
-	    better1_N1.addMoney(100);
+	    	better1_N1.addMoney(100);
 	    
 		testGen3.setRandomNum(0.25);
 		better2Dec_0 = new BetterBetting(0,testGen3);
@@ -59,17 +59,17 @@ class TESTBetterBetting {
 		better2Dec_0.addMoney(100);
 		better2Dec_N1.addMoney(100);
 	    
-	    testGen4.setRandomNum(-0.33);
-	    betterND1_0 = new BetterBetting(0,testGen4);
+	    	testGen4.setRandomNum(-0.33);
+	    	betterND1_0 = new BetterBetting(0,testGen4);
 		betterND1_N1 = new BetterBetting(-1,testGen4);
 		betterND1_0.addMoney(100);
-	    betterND1_N1.addMoney(100);
+	    	betterND1_N1.addMoney(100);
 		
-	    testGen5.setRandomNum(0.99);
-        better9Dec_0 = new BetterBetting(0,testGen5);
-        better9Dec_N1 = new BetterBetting(-1,testGen5);
-        better9Dec_0.addMoney(100);
-        better9Dec_N1.addMoney(100);
+	    	testGen5.setRandomNum(0.99);
+		better9Dec_0 = new BetterBetting(0,testGen5);
+		better9Dec_N1 = new BetterBetting(-1,testGen5);
+		better9Dec_0.addMoney(100);
+		better9Dec_N1.addMoney(100);
         
 
 	}      
@@ -77,14 +77,14 @@ class TESTBetterBetting {
 	@Test
 	public void checkMinZeroOrNegativeNotPositive() {
 		
-	better0_1 = new BetterBetting(1,testGen6);	
-	better1_1 = new BetterBetting(1,testGen6);
-	betterN1_1 = new BetterBetting(1,testGen6);
-	assertEquals(better0_1.getMinBalance(), 0);
-	assertEquals(better1_1.getMinBalance(), 0);
-	assertEquals(betterN1_1.getMinBalance(), 0);
-	assertEquals(better2Dec_N1.getMinBalance(), -1);
-	assertEquals(better2Dec_0.getMinBalance(), 0);
+		better0_1 = new BetterBetting(1,testGen6);	
+		better1_1 = new BetterBetting(1,testGen6);
+		betterN1_1 = new BetterBetting(1,testGen6);
+		assertEquals(better0_1.getMinBalance(), 0);
+		assertEquals(better1_1.getMinBalance(), 0);
+		assertEquals(betterN1_1.getMinBalance(), 0);
+		assertEquals(better2Dec_N1.getMinBalance(), -1);
+		assertEquals(better2Dec_0.getMinBalance(), 0);
 	
 	}
 	  
@@ -107,13 +107,13 @@ class TESTBetterBetting {
 		 
 	}       
 	
-    @Test  //Test that no negatives can be added to balance manually
-    public void noAddingNegativeAmounts() {
-    	better0_0.addMoney(-50);
-    	better0_N1.addMoney(-50);
-    	assertEquals(better0_0.getCurrentBalance(),100);
-    	assertEquals(better0_N1.getCurrentBalance(),100);
-    }
+	@Test  //Test that no negatives can be added to balance manually
+	public void noAddingNegativeAmounts() {
+		 better0_0.addMoney(-50);
+		 better0_N1.addMoney(-50);
+		 assertEquals(better0_0.getCurrentBalance(),100);
+		 assertEquals(better0_N1.getCurrentBalance(),100);
+	    }
 	
 	
 	@Test  
@@ -132,14 +132,14 @@ class TESTBetterBetting {
 		assertEquals(better2Dec_0.betOnANumber(60, 2, 100, 26), 5880);
 		assertEquals(better2Dec_0.betOnANumber(67, 3, 11, 5), 536);
 		assertEquals(better2Dec_0.getCurrentBalance(),8496);
-        //merely for testing purposes, not realistic
+        	//merely for testing purposes, not realistic
 		assertEquals(better1_0.betOnANumber(50, 0, 100, 101),5000);
 		//minimumBalance is negative 1
 		assertEquals(better0_N1.betOnANumber(101, 2, 30, 2),2828);
 		assertEquals(better9Dec_N1.betOnANumber(75, 6, 1000, 991), 74550);
 		assertEquals(better9Dec_0.betOnANumber(80, 0, 12, 12), 960);
 		//corner case, Math.random gives no negative generation(nor does the better allow negative values-see below)
-	    assertEquals(betterND1_0.betOnANumber(20, 10, 70, -10), 1200);
+	    	assertEquals(betterND1_0.betOnANumber(20, 10, 70, -10), 1200);
 	   
 	}
 	
@@ -171,7 +171,7 @@ class TESTBetterBetting {
 		assertEquals(better2Dec_0.betOnANumber(102, 2, 100, 26),0);
 		assertEquals(better2Dec_0.betOnANumber(103, 3, 11, 5),0);
 		assertEquals(better2Dec_0.getCurrentBalance(),100);
-        assertEquals(better1_0.betOnANumber(101, 0, 100, 101),0);
+      		assertEquals(better1_0.betOnANumber(101, 0, 100, 101),0);
 		assertEquals(better0_N1.betOnANumber(102, 2, 30, 2),0);
 		assertEquals(better9Dec_N1.betOnANumber(103, 6, 1000, 991),0);
 		assertEquals(better9Dec_0.betOnANumber(101, 0, 12, 12),0);
@@ -203,13 +203,13 @@ class TESTBetterBetting {
 			assertEquals(better2Dec_0.betOnProbability(100, 0.25),300);
 			assertEquals(better2Dec_N1.betOnProbability(101, 0.25),303);
 			assertEquals(better9Dec_0.betOnProbability(100, 0.99),1);
-		    assertEquals(better9Dec_N1.betOnProbability(101, 0.99),1);
-		    assertEquals(better2Dec_0.betOnProbability(100, 0.80), (int)( ( (Math.pow(0.80, -1)) -1) * 100 ));
+		    	assertEquals(better9Dec_N1.betOnProbability(101, 0.99),1);
+		    	assertEquals(better2Dec_0.betOnProbability(100, 0.80), (int)( ( (Math.pow(0.80, -1)) -1) * 100 ));
 			assertEquals(better2Dec_0.betOnProbability(100, 0.80),25);
 			assertEquals(better2Dec_N1.betOnProbability(101, 0.26),287);
-		    //"win"
+		    	//"win"
 			assertEquals(better9Dec_0.betOnProbability(100, 0.999),0);
-		    assertEquals(better9Dec_N1.betOnProbability(101, 0.999),0);
+		    	assertEquals(better9Dec_N1.betOnProbability(101, 0.999),0);
 		}
 		catch(ImpossibleProbabilityException e) {
 			e.getMessage();
@@ -221,14 +221,14 @@ class TESTBetterBetting {
 	@Test
 	public void testBetOnProbLoseAmount() {
 		try{
-			assertEquals(better2Dec_0.betOnProbability(60, 0.24),-60);
-	        assertEquals(better2Dec_N1.betOnProbability(60, 0.1),-60);
-			assertEquals(better9Dec_0.betOnProbability(60, 0.98),-60);
-		    assertEquals(better9Dec_N1.betOnProbability(60, 0.80),-60);
-		    assertEquals(better2Dec_0.getCurrentBalance(),40);
-		    assertEquals(better2Dec_N1.getCurrentBalance(),40);
-		    assertEquals(better9Dec_N1.getCurrentBalance(),40);
-			assertEquals(better9Dec_0.getCurrentBalance(),40);
+			 assertEquals(better2Dec_0.betOnProbability(60, 0.24),-60);
+	       		 assertEquals(better2Dec_N1.betOnProbability(60, 0.1),-60);
+			 assertEquals(better9Dec_0.betOnProbability(60, 0.98),-60);
+		    	 assertEquals(better9Dec_N1.betOnProbability(60, 0.80),-60);
+		    	 assertEquals(better2Dec_0.getCurrentBalance(),40);
+		    	 assertEquals(better2Dec_N1.getCurrentBalance(),40);
+		    	 assertEquals(better9Dec_N1.getCurrentBalance(),40);
+			 assertEquals(better9Dec_0.getCurrentBalance(),40);
 		}
 		catch(ImpossibleProbabilityException e) {
 			e.getMessage();
@@ -264,9 +264,9 @@ class TESTBetterBetting {
 		trvg.setRandomNum(.37);
 		assertEquals(trvg.getRandomNumInRange(2, 60),23);
 		assertEquals(trvg.getRandomNumInRange(2, 2),2);
-	    assertEquals(trvg.getRandomNumInRange(-20, 30),-1);
-	    assertEquals(trvg.getRandomNumInRange(-60, -2),-38);
-	    trvg.setRandomNum(-0.37);
+		assertEquals(trvg.getRandomNumInRange(-20, 30),-1);
+		assertEquals(trvg.getRandomNumInRange(-60, -2),-38);
+		trvg.setRandomNum(-0.37);
 		assertEquals(trvg.getRandomNumInRange(2, 60),-19);
 		
 		//The following fail; must figure out why, but for this project it doesn't seem to matter.
