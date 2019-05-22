@@ -3,7 +3,7 @@ package gamblegamble;
 public class BetterBetting {
 	
 	private int balance=0;
-    private int minBalance=0;
+    	private int minBalance=0;
 	private IRandomValueGenerator randGen;
     
 	public BetterBetting(int minBalance, IRandomValueGenerator randGen) {
@@ -22,13 +22,13 @@ public class BetterBetting {
 	public boolean canBet(int amnt) {
 		boolean canBet = false;
 		if( (amnt>0) && (balance >= (minBalance + amnt)) )
-		canBet = true;
-			return canBet; 
+			canBet = true;
+		return canBet; 
 	}
 	
 	public void addMoney(int amnt) {
 		if (amnt >= 0)
-		balance += amnt;
+			balance += amnt;
 	}
 	
 	//if someone chooses a number thats out of the range, that's their problem, they lose automatically.
