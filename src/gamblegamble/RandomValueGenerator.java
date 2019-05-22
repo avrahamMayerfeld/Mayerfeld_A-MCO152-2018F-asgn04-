@@ -24,7 +24,7 @@ public class RandomValueGenerator implements IRandomValueGenerator{
 			randomInRange=(int) (randomValue * (max-min + 1)  + min);
 		else
 		{
-				throw new InvalidParameterException("min cannot be greater than max");
+			throw new InvalidParameterException("min cannot be greater than max");
 		}
  		return randomInRange;
 	}
